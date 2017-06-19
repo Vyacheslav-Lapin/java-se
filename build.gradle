@@ -1,0 +1,32 @@
+group 'com.luxoft-training.java.se'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    testCompile.extendsFrom compileOnly
+}
+
+// this turns logging on in tests:
+test.testLogging.showStandardStreams = true
+
+dependencies {
+    compile 'org.apache.logging.log4j:log4j-core:+',
+            'io.vavr:vavr:+'
+
+    compileOnly 'org.projectlombok:lombok:+',
+            'edu.washington.cs.types.checker:checker-framework:+'
+
+    testCompile 'org.junit.jupiter:junit-jupiter-api:+',
+            'org.hamcrest:java-hamcrest:+'
+}
+
+task Wrapper(type: Wrapper) {
+    gradleVersion = '4.0'
+}
