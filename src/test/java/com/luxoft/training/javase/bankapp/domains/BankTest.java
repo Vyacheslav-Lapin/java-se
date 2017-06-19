@@ -59,6 +59,8 @@ class BankTest {
                                 .getTime())
         });
 
+        System.out.println(bank);
+
         modifyBank(bank);
 
         for (Client client : bank.getClients()) {
