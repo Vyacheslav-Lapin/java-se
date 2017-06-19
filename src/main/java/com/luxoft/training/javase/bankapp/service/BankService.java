@@ -1,5 +1,6 @@
 package com.luxoft.training.javase.bankapp.service;
 
+import com.luxoft.training.javase.bankapp.domains.CLientExistsException;
 import com.luxoft.training.javase.bankapp.domains.accounts.Account;
 import com.luxoft.training.javase.bankapp.domains.Bank;
 import com.luxoft.training.javase.bankapp.domains.clients.Client;
@@ -10,7 +11,7 @@ import java.util.GregorianCalendar;
 
 public class BankService {
 
-    public static Client addClient(String firstName, String lastName, Gender gender, int year, int month, int dayOfMonth, Account... accounts) {
+    public static Client addClient(String firstName, String lastName, Gender gender, int year, int month, int dayOfMonth, Account... accounts) throws CLientExistsException {
 
         Client client = new Client(accounts,
                 firstName,

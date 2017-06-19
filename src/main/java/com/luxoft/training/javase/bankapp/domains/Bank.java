@@ -27,7 +27,15 @@ public class Bank extends ClientObserver {
         return result;
     }
 
-    public int add(Client client) {
+    public int add(Client client) throws CLientExistsException {
+
+        for (int i = 0; i < index; i++) {
+            Client client1 = clients[i];
+            if (client1.getFirstName().equals(client.getFirstName())
+                    && client1.getLastName().equals(client.getLastName()))
+                throw new CLientExistsException();
+        }
+
         if (index < clients.length) {
             clients[index++] = client;
             clientAdded(client);

@@ -2,6 +2,7 @@ package com.luxoft.training.javase.bankapp.domains;
 
 import com.luxoft.training.javase.bankapp.domains.accounts.Account;
 import com.luxoft.training.javase.bankapp.domains.accounts.CheckingAccount;
+import com.luxoft.training.javase.bankapp.domains.accounts.NotEnoughFundsException;
 import com.luxoft.training.javase.bankapp.domains.accounts.SavingAccount;
 import com.luxoft.training.javase.bankapp.domains.clients.Client;
 import com.luxoft.training.javase.bankapp.domains.clients.EmailNotificationClientListener;
@@ -17,7 +18,7 @@ import static org.hamcrest.core.Is.is;
 class BankTest {
 
     @Test
-    void getClients() {
+    void getClients() throws CLientExistsException, NotEnoughFundsException {
 
         BankService.addListener(new PrintClientListener());
         BankService.addListener(new EmailNotificationClientListener());
@@ -56,7 +57,7 @@ class BankTest {
         System.out.println(Bank.INSTANCE);
     }
 
-    private void modifyBank() {
+    private void modifyBank() throws NotEnoughFundsException {
         for (Client client : Bank.INSTANCE.getClients()) {
             for (Account account : client.getAccounts()) {
                 account.withdraw(account.getBalance());

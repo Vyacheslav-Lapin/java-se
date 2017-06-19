@@ -12,7 +12,7 @@ public abstract class ClientObserver {
         listeners.add(listener);
     }
 
-    //todo: realize CRUD for listeners
+    // TODO: 19/06/2017 realize CRUD for listeners
 
     public void clientAdded(Client client) {
         for (ClientRegistrationListener listener : listeners) {

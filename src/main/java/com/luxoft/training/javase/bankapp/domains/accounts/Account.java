@@ -5,5 +5,5 @@ public interface Account {
 
     void deposit(double x);
 
-    void withdraw(double x);
+    void withdraw(double x) throws NotEnoughFundsException;
 }
