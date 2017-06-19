@@ -1,5 +1,11 @@
 package com.luxoft.training.javase.bankapp.domains;
 
+import com.luxoft.training.javase.bankapp.domains.accounts.Account;
+import com.luxoft.training.javase.bankapp.domains.accounts.CheckingAccount;
+import com.luxoft.training.javase.bankapp.domains.accounts.SavingAccount;
+import com.luxoft.training.javase.bankapp.domains.clients.Client;
+import com.luxoft.training.javase.bankapp.domains.clients.EmailNotificationClientListener;
+import com.luxoft.training.javase.bankapp.domains.clients.PrintClientListener;
 import com.luxoft.training.javase.bankapp.service.BankService;
 import org.junit.jupiter.api.Test;
 
@@ -12,6 +18,9 @@ class BankTest {
 
     @Test
     void getClients() {
+
+        BankService.addListener(new PrintClientListener());
+        BankService.addListener(new EmailNotificationClientListener());
 
         Client Jane = BankService.addClient(
                 "Женя",

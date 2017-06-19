@@ -1,9 +1,10 @@
 package com.luxoft.training.javase.bankapp.service;
 
-import com.luxoft.training.javase.bankapp.domains.Account;
+import com.luxoft.training.javase.bankapp.domains.accounts.Account;
 import com.luxoft.training.javase.bankapp.domains.Bank;
-import com.luxoft.training.javase.bankapp.domains.Client;
+import com.luxoft.training.javase.bankapp.domains.clients.Client;
 import com.luxoft.training.javase.bankapp.domains.Gender;
+import com.luxoft.training.javase.bankapp.domains.clients.ClientRegistrationListener;
 
 import java.util.GregorianCalendar;
 
@@ -21,5 +22,9 @@ public class BankService {
         Bank.INSTANCE.add(client);
 
         return client;
+    }
+
+    public static void addListener(ClientRegistrationListener listener) {
+        Bank.INSTANCE.addListener(listener);
     }
 }

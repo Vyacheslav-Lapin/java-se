@@ -1,4 +1,4 @@
-package com.luxoft.training.javase.bankapp.domains;
+package com.luxoft.training.javase.bankapp.domains.accounts;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

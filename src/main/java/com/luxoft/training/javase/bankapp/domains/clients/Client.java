@@ -1,5 +1,7 @@
-package com.luxoft.training.javase.bankapp.domains;
+package com.luxoft.training.javase.bankapp.domains.clients;
 
+import com.luxoft.training.javase.bankapp.domains.Gender;
+import com.luxoft.training.javase.bankapp.domains.accounts.Account;
 import lombok.Value;
 
 import java.util.Date;
