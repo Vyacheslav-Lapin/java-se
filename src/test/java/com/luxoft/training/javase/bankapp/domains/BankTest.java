@@ -18,21 +18,21 @@ class BankTest {
                 "Петренко",
                 MALE,
                 1987, 3, 1,
-                new CheckingAccount(50));
+                new CheckingAccount(50, 100));
 
         Client Sasha = BankService.addClient(
                 "Саша",
                 "Петренко",
                 FEMALE,
                 1983, 3, 1,
-                new CheckingAccount(150));
+                new SavingAccount(150));
 
         Client Vasya = BankService.addClient(
                 "Вася",
                 "Петренко",
                 FEMALE,
                 1986, 3, 1,
-                new CheckingAccount(250));
+                new CheckingAccount(250, 150));
 
         System.out.println(Bank.INSTANCE);
 

@@ -11,11 +11,8 @@ public enum  Bank {
     private int index;
 
     public Client[] getClients() {
-
         Client[] result = new Client[index];
-
         System.arraycopy(clients, 0, result, 0, index);
-
         return result;
     }
 
@@ -25,18 +22,4 @@ public enum  Bank {
 
         return index - 1;
     }
-
-//    private Bank() {
-//    }
-//
-//    private volatile static Bank bank;
-//
-//    public static Bank getInstance() {
-//        if (bank == null)
-//            synchronized (Bank.class) {
-//                if (bank == null)
-//                    bank = new Bank();
-//            }
-//        return bank;
-//    }
 }

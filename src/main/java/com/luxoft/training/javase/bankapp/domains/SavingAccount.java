@@ -1,30 +1,20 @@
 package com.luxoft.training.javase.bankapp.domains;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-@AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class SavingAccount implements Account {
+public class SavingAccount extends AbstractAccount {
 
-    private double balance;
-
-    /**
-     * добавляет значение к балансу
-     */
-    @Override
-    public void deposit(double x) {
-        if (x > 0)
-            balance += x;
+    public SavingAccount(double balance) {
+        super(balance);
     }
 
     @Override
-    public void withdraw(double x) {
-        if (x > 0 && x < balance)
-            balance -= x;
+    protected double availableFunds() {
+        return balance;
     }
 }
