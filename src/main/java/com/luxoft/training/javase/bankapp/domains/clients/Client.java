@@ -18,13 +18,6 @@ public class Client {
 
     @Override
     public String toString() {
-
-//        String[] strings = {"Мама", "мыла", "раму"};
-//        String result = "";
-//        for (String string : strings) {
-//            result += string;
-//        }
-
         return String.format("Client %s %s %s (accounts=%s, dateOfBirth=%s)%n",
                 getGender().getSalutation(),
                 getFirstName(),
