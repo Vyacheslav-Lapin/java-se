@@ -1,0 +1,3 @@
+accounttype=c;balance=100;overdraft=50;firstName=John;lastName=Doe;gender=m
+accounttype=c;balance=180;overdraft=150;firstName=Jane;lastName=Doe;gender=f
+accounttype=c;balance=200;overdraft=500;firstName=Alex;lastName=Brown;gender=m

@@ -12,7 +12,9 @@ public abstract class ClientObserver {
         listeners.add(listener);
     }
 
-    // TODO: 19/06/2017 realize CRUD for listeners
+    public void deleteListener(ClientRegistrationListener listener) {
+        listeners.remove(listener);
+    }
 
     public void clientAdded(Client client) {
         for (ClientRegistrationListener listener : listeners) {

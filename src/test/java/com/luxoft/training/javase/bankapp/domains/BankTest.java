@@ -8,6 +8,8 @@ import com.luxoft.training.javase.bankapp.domains.clients.Client;
 import com.luxoft.training.javase.bankapp.domains.clients.EmailNotificationClientListener;
 import com.luxoft.training.javase.bankapp.domains.clients.PrintClientListener;
 import com.luxoft.training.javase.bankapp.service.BankService;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.luxoft.training.javase.bankapp.domains.Gender.FEMALE;
@@ -17,11 +19,23 @@ import static org.hamcrest.core.Is.is;
 
 class BankTest {
 
+    PrintClientListener printClientListener = new PrintClientListener();
+    EmailNotificationClientListener emailNotificationClientListener = new EmailNotificationClientListener();
+
+    @BeforeEach
+    void setUp() {
+        BankService.addListener(printClientListener);
+        BankService.addListener(emailNotificationClientListener);
+    }
+
+    @AfterEach
+    void tearDown() {
+        BankService.removeListener(printClientListener);
+        BankService.removeListener(emailNotificationClientListener);
+    }
+
     @Test
     void getClients() throws BankException {
-
-        BankService.addListener(new PrintClientListener());
-        BankService.addListener(new EmailNotificationClientListener());
 
         Client Jane = BankService.addClient(
                 "Женя",
