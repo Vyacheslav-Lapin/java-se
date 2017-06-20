@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public abstract class AbstractAccount implements Account {
+public abstract class AbstractAccount extends AccountObserver implements Account {
 
     protected double balance;
 
@@ -19,16 +19,17 @@ public abstract class AbstractAccount implements Account {
      */
     @Override
     public void deposit(double x) {
-        if (x > 0)
+        if (x > 0) {
+            double oldBalance = balance;
             balance += x;
+            accountModified(oldBalance, balance);
+        }
         else throw new IllegalStateException();
     }
-
     @Override
     public void withdraw(double x) throws NotEnoughFundsException {
-//        assert x > 0 && x <= availableFunds();
         if (x > 0 && x <= availableFunds())
-            balance -= x;
+            accountModified(balance, balance -= x);
         else throw new NotEnoughFundsException(x);
     }
 

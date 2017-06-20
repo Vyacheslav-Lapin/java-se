@@ -6,6 +6,7 @@ import com.luxoft.training.javase.bankapp.domains.accounts.CheckingAccount;
 import com.luxoft.training.javase.bankapp.domains.accounts.SavingAccount;
 import lombok.Value;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Properties;
 
@@ -14,7 +15,7 @@ import static com.luxoft.training.javase.bankapp.domains.Gender.MALE;
 import static java.util.Arrays.deepToString;
 
 @Value
-public class Client {
+public class Client implements Serializable {
     private Account[] accounts;
     private String firstName;
     private String lastName;

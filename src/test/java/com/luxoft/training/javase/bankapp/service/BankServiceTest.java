@@ -1,7 +1,5 @@
 package com.luxoft.training.javase.bankapp.service;
 
-import com.luxoft.training.javase.bankapp.domains.clients.Client;
-import com.luxoft.training.javase.bankapp.domains.clients.ClientRegistrationListener;
 import lombok.SneakyThrows;
 import lombok.val;
 import org.junit.jupiter.api.Test;
@@ -16,20 +14,10 @@ class BankServiceTest {
     @Test
     void main() {
         BankService.addListener(
-                new ClientRegistrationListener() {
-                    @Override
-                    public void onClientAdded(Client client) {
-                        System.out.println(client.getFirstName());
-                    }
-                });
+                client -> System.out.println(client.getFirstName()));
 
         assertThat(
-                fromSystemOut(new Runnable() {
-                    @Override
-                    public void run() {
-                        BankService.main("–loadfeed", "src/test/resources/feed.csv");
-                    }
-                })
+                fromSystemOut(() -> BankService.main("–loadfeed", "src/test/resources/feed.csv"))
                 , is("John\nJane\nAlex\n")
         );
 
