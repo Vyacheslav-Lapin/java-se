@@ -1,4 +1,9 @@
 package com.luxoft.training.javase.bankapp.domains.accounts;
 
-public class NotEnoughFundsException extends Exception {
+import com.luxoft.training.javase.bankapp.domains.BankException;
+import lombok.Value;
+
+@Value
+public class NotEnoughFundsException extends BankException {
+    private double amount;
 }

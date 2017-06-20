@@ -24,7 +24,7 @@ public abstract class AbstractAccount implements Account {
 //        assert x > 0 && x <= availableFunds();
         if (x > 0 && x <= availableFunds())
             balance -= x;
-        else throw new NotEnoughFundsException();
+        else throw new NotEnoughFundsException(x);
     }
 
     protected abstract double availableFunds();

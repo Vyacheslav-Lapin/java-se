@@ -17,23 +17,18 @@ public class Bank extends ClientObserver {
     public Client[] getClients() {
         Client[] result = new Client[index];
 
-        System.arraycopy(
-                clients,
-                0,
-                result,
-                0,
-                index);
+        System.arraycopy(clients, 0, result, 0, index);
 
         return result;
     }
 
-    public int add(Client client) throws CLientExistsException {
+    public int add(Client client) throws ClientExistsException {
 
         for (int i = 0; i < index; i++) {
             Client client1 = clients[i];
             if (client1.getFirstName().equals(client.getFirstName())
                     && client1.getLastName().equals(client.getLastName()))
-                throw new CLientExistsException();
+                throw new ClientExistsException();
         }
 
         if (index < clients.length) {

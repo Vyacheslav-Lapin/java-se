@@ -18,7 +18,7 @@ import static org.hamcrest.core.Is.is;
 class BankTest {
 
     @Test
-    void getClients() throws CLientExistsException, NotEnoughFundsException {
+    void getClients() throws BankException {
 
         BankService.addListener(new PrintClientListener());
         BankService.addListener(new EmailNotificationClientListener());
