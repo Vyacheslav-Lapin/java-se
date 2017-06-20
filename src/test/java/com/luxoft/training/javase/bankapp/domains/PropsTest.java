@@ -1,10 +1,10 @@
 package com.luxoft.training.javase.bankapp.domains;
 
+import lombok.SneakyThrows;
+import lombok.val;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Properties;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,5 +22,24 @@ class PropsTest {
 
         assertThat(properties.getProperty("key"), is("value"));
         assertThat(properties.getProperty("key2"), is("value2"));
+    }
+
+    @SuppressWarnings("unused")
+    @SneakyThrows
+    private static String fromSystemOut(Runnable runnable) {
+
+        PrintStream realOut = System.out;
+
+        try (val out = new ByteArrayOutputStream();
+             val printStream = new PrintStream(out)) {
+
+            System.setOut(printStream);
+            runnable.run();
+
+            return new String(out.toByteArray()).intern();
+
+        } finally {
+            System.setOut(realOut);
+        }
     }
 }

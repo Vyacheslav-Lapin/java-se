@@ -9,6 +9,11 @@ public abstract class AbstractAccount implements Account {
 
     protected double balance;
 
+    @Override
+    public long decimalValue() {
+        return Math.round(balance);
+    }
+
     /**
      * добавляет значение к балансу
      */
