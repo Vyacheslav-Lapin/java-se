@@ -1,5 +1,6 @@
 package com.luxoft.training.javase.bankapp.service;
 
+import com.luxoft.training.javase.bankapp.ArrayUtil;
 import com.luxoft.training.javase.bankapp.domains.Bank;
 import com.luxoft.training.javase.bankapp.domains.ClientExistsException;
 import com.luxoft.training.javase.bankapp.domains.Gender;
@@ -7,11 +8,11 @@ import com.luxoft.training.javase.bankapp.domains.accounts.Account;
 import com.luxoft.training.javase.bankapp.domains.clients.Client;
 import com.luxoft.training.javase.bankapp.domains.clients.ClientRegistrationListener;
 import lombok.SneakyThrows;
+import lombok.val;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.LineNumberReader;
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.GregorianCalendar;
 
 public class BankService {
@@ -48,17 +49,32 @@ public class BankService {
 
     @SneakyThrows
     public static void main(String... args) {
-        if (args.length < 2
-                || !args[0].equals("–loadfeed")
-                || !new File(args[1]).exists())
-            return;
+        if (args.length > 1
+                && args[0].equals("–loadfeed")
+                && new File(args[1]).exists())
 
-        try (LineNumberReader reader = new LineNumberReader(
-                new BufferedReader(
-                        new FileReader(args[1])))) {
-            String line;
-            while ((line = reader.readLine()) != null)
-                addClient(Client.parse(line));
-        }
+            try (LineNumberReader reader = new LineNumberReader(
+                    new BufferedReader(
+                            new FileReader(args[1])))) {
+                String line;
+                while ((line = reader.readLine()) != null)
+                    addClient(Client.parse(line));
+            }
+
+        if (ArrayUtil.indexOf(args, "-server") > -1)
+            try (ServerSocket serverSocket = new ServerSocket(5432);
+                 Socket socket = serverSocket.accept();
+                 val writer = new PrintWriter(
+                         socket.getOutputStream(), true);
+                 val dataInputStream = new BufferedReader(
+                         new InputStreamReader(
+                                 socket.getInputStream()))) {
+                String message = dataInputStream.readLine();
+                if (message.startsWith("add ")) {
+                    Client client = addClient(Client.parse(message.substring(4)));
+                    writer.println(String.format("Client %s OK!", client));
+                }
+            }
+
     }
 }
