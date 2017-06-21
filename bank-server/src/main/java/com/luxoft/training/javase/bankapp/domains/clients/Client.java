@@ -32,6 +32,12 @@ public class Client implements Serializable {
                 getDateOfBirth());
     }
 
+    public String getEmail() {
+        return String.format("%s.%s@gmail.com",
+                firstName,
+                lastName);
+    }
+
     // accounttype=c;balance=100;overdraft=50;name=John;gender=m
     public static Client parse(String s) {
         Properties properties = getAsProperties(s);

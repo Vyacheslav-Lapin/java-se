@@ -20,7 +20,8 @@ import static org.hamcrest.core.Is.is;
 class BankTest {
 
     PrintClientListener printClientListener = new PrintClientListener();
-    EmailNotificationClientListener emailNotificationClientListener = new EmailNotificationClientListener();
+    EmailNotificationClientListener emailNotificationClientListener =
+            EmailNotificationClientListener.getInstance();
 
     @BeforeEach
     void setUp() {
