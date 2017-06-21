@@ -1,2 +1,4 @@
 rootProject.name = 'java-se'
 
+include 'bank-server',
+        'bank-client'
