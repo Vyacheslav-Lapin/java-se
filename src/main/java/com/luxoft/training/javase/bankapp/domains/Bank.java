@@ -2,7 +2,7 @@ package com.luxoft.training.javase.bankapp.domains;
 
 import com.luxoft.training.javase.bankapp.domains.accounts.AccountModificationListener;
 import com.luxoft.training.javase.bankapp.domains.clients.Client;
-import com.luxoft.training.javase.bankapp.domains.clients.ClientObserver;
+import com.luxoft.training.javase.bankapp.observer.ClientObserver;
 import lombok.SneakyThrows;
 import lombok.ToString;
 

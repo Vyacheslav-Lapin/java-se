@@ -1,5 +1,6 @@
 package com.luxoft.training.javase.bankapp.domains.accounts;
 
+import com.luxoft.training.javase.bankapp.observer.AccountObserver;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -28,7 +29,7 @@ public abstract class AbstractAccount extends AccountObserver implements Account
     }
     @Override
     public void withdraw(double x) throws NotEnoughFundsException {
-        if (x > 0 && x <= availableFunds())
+        if (x >= 0 && x <= availableFunds())
             accountModified(balance, balance -= x);
         else throw new NotEnoughFundsException(x);
     }

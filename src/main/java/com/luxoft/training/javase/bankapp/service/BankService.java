@@ -16,7 +16,7 @@ import java.util.GregorianCalendar;
 
 public class BankService {
 
-    public static Client addClient(String firstName, String lastName, Gender gender, int year, int month, int dayOfMonth, Account... accounts) throws ClientExistsException {
+    public static Client addClient(String firstName, String lastName, Gender gender, int year, int month, int dayOfMonth, Account... accounts) {
 
         Client client = new Client(accounts,
                 firstName,
@@ -25,7 +25,11 @@ public class BankService {
                 new GregorianCalendar(year, month, dayOfMonth)
                         .getTime());
 
-        return addClient(client);
+        try {
+            return addClient(client);
+        } catch (ClientExistsException e) {
+            return client;
+        }
     }
 
     private static Client addClient(Client client) throws ClientExistsException {

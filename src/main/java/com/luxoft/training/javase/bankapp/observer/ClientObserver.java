@@ -1,4 +1,7 @@
-package com.luxoft.training.javase.bankapp.domains.clients;
+package com.luxoft.training.javase.bankapp.observer;
+
+import com.luxoft.training.javase.bankapp.domains.clients.Client;
+import com.luxoft.training.javase.bankapp.domains.clients.ClientRegistrationListener;
 
 import java.util.ArrayList;
 import java.util.List;
