@@ -7,7 +7,7 @@ public class EmailNotificationClientListener
         extends Thread
         implements ClientRegistrationListener {
 
-    private static EmailNotificationClientListener listener =
+    private volatile static EmailNotificationClientListener listener =
             new EmailNotificationClientListener();
 
     private EmailNotificationClientListener(){}
@@ -31,6 +31,10 @@ public class EmailNotificationClientListener
                 "Вас добавили!!! :)",
                 "Вашу учётку наконец-то завели в нашем замечательном банке!\n" +
                         "Где получили карту - туда и идите!"));
+
+        synchronized (this) {
+            notifyAll();
+        }
     }
 
     @Override
@@ -46,10 +50,12 @@ public class EmailNotificationClientListener
                         email.getBody()
                 );
             }
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                break;
+            synchronized (this) {
+                try {
+                    wait(1000);
+                } catch (InterruptedException e) {
+                    break;
+                }
             }
         }
     }
