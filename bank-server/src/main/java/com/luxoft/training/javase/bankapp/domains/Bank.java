@@ -1,12 +1,15 @@
 package com.luxoft.training.javase.bankapp.domains;
 
-import com.luxoft.training.javase.bankapp.domains.accounts.AccountModificationListener;
 import com.luxoft.training.javase.bankapp.domains.clients.Client;
 import com.luxoft.training.javase.bankapp.observer.ClientObserver;
 import lombok.SneakyThrows;
 import lombok.ToString;
 
 import java.io.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @ToString
 public class Bank extends ClientObserver implements Serializable {
@@ -30,7 +33,7 @@ public class Bank extends ClientObserver implements Serializable {
     }
 
     public static final int CLIENTS_LENGTH = 10;
-    private Client[] clients = new Client[CLIENTS_LENGTH];
+    private Set<Client> clients = new HashSet<>(CLIENTS_LENGTH);
     private int index;
 
     @SneakyThrows
@@ -41,37 +44,24 @@ public class Bank extends ClientObserver implements Serializable {
         }
     }
 
-    public Client[] getClients() {
-        Client[] result = new Client[index];
-
-        System.arraycopy(clients, 0, result, 0, index);
-
-        return result;
+    public Collection<Client> getClients() {
+        return Collections.unmodifiableCollection(clients);
     }
 
-    public int add(Client client) throws ClientExistsException {
+    public void add(Client client) throws ClientExistsException {
 
-        for (int i = 0; i < index; i++) {
-            Client client1 = clients[i];
+        for (Client client1 : clients)
             if (client1.getFirstName().equals(client.getFirstName())
                     && client1.getLastName().equals(client.getLastName()))
                 throw new ClientExistsException();
-        }
 
-        if (index < clients.length) {
-            clients[index++] = client;
-            clientAdded(client);
-        }
+        clients.add(client);
+        clientAdded(client);
 
-        client.getAccounts()[0].addListener(
-                new AccountModificationListener() {
-                    @Override
-                    public void accountModified(double oldBalance, double newBalance) {
-                        Bank.this.save();
-                    }
-                }
+        client.getAccounts().iterator().next()
+                .addListener(
+                (oldBalance, newBalance) ->
+                        Bank.this.save()
         );
-
-        return index - 1;
     }
 }

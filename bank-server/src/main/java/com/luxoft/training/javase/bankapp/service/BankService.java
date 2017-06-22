@@ -13,13 +13,16 @@ import lombok.val;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 
 public class BankService {
 
     public static Client addClient(String firstName, String lastName, Gender gender, int year, int month, int dayOfMonth, Account... accounts) {
 
-        Client client = new Client(accounts,
+        Client client = new Client(
+                new HashSet<>(Arrays.asList(accounts)),
                 firstName,
                 lastName,
                 gender,

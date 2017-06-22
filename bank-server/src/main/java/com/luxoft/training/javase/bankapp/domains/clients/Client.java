@@ -8,15 +8,16 @@ import lombok.Value;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
 
 import static com.luxoft.training.javase.bankapp.domains.Gender.FEMALE;
 import static com.luxoft.training.javase.bankapp.domains.Gender.MALE;
-import static java.util.Arrays.deepToString;
 
 @Value
 public class Client implements Serializable {
-    private Account[] accounts;
+    private Set<Account> accounts;
     private String firstName;
     private String lastName;
     private Gender gender;
@@ -28,7 +29,7 @@ public class Client implements Serializable {
                 getGender().getSalutation(),
                 getFirstName(),
                 getLastName(),
-                deepToString(getAccounts()),
+                getAccounts(),
                 getDateOfBirth());
     }
 
@@ -42,18 +43,18 @@ public class Client implements Serializable {
     public static Client parse(String s) {
         Properties properties = getAsProperties(s);
 
-        Account[] accounts = {
-                (properties.getProperty(
-                        "accounttype",
-                        properties.containsKey("overdraft") ? "c" : "s"
-                ).equals("c")) ?
-                        new CheckingAccount(
-                                Double.parseDouble(properties.getProperty("balance")),
-                                Double.parseDouble(properties.getProperty("overdraft"))
-                        ) :
-                        new SavingAccount(
-                                Double.parseDouble(properties.getProperty("balance"))
-                        )};
+        Set<Account> accounts = new HashSet<>();
+        accounts.add((properties.getProperty(
+                "accounttype",
+                properties.containsKey("overdraft") ? "c" : "s"
+        ).equals("c")) ?
+                new CheckingAccount(
+                        Double.parseDouble(properties.getProperty("balance")),
+                        Double.parseDouble(properties.getProperty("overdraft"))
+                ) :
+                new SavingAccount(
+                        Double.parseDouble(properties.getProperty("balance"))
+                ));
 
         Gender gender = properties.getProperty("gender", "m").equals("m") ? MALE : FEMALE;
 
