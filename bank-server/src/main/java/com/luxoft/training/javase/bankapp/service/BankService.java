@@ -8,6 +8,7 @@ import com.luxoft.training.javase.bankapp.domains.accounts.Account;
 import com.luxoft.training.javase.bankapp.domains.clients.Client;
 import com.luxoft.training.javase.bankapp.domains.clients.ClientRegistrationListener;
 import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j2;
 import lombok.val;
 
 import java.io.*;
@@ -17,11 +18,12 @@ import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 
+@Log4j2
 public class BankService {
 
     public static Client addClient(String firstName, String lastName, Gender gender, int year, int month, int dayOfMonth, Account... accounts) {
 
-        Client client = new Client(
+        val client = new Client(
                 new HashSet<>(Arrays.asList(accounts)),
                 firstName,
                 lastName,
@@ -30,6 +32,7 @@ public class BankService {
                         .getTime());
 
         try {
+            log.info("Добавляем клиента {}", client);
             return addClient(client);
         } catch (ClientExistsException e) {
             return client;

@@ -1,8 +1,11 @@
 package com.luxoft.training.javase.bankapp.domains.clients;
 
+import lombok.extern.log4j.Log4j2;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
+@Log4j2
 public class EmailNotificationClientListener
         extends Thread
         implements ClientRegistrationListener {
@@ -42,8 +45,8 @@ public class EmailNotificationClientListener
         while (true) {
             while (emails.size() > 0) {
                 Email email = emails.poll();
-                System.out.printf(
-                        "Notification email from %s to %s with theme %s and body %s to be sent.%n",
+                log.info(
+                        "Notification email from {} to {} with theme {} and body {} to be sent",
                         email.getFrom(),
                         email.getTo(),
                         email.getTheme(),
